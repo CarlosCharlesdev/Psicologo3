@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Rafael Costa - Psicólogo Clínico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<!-- Indicador de Progresso -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Header -->
+<header class="header" id="header">
+  <nav class="nav container">
+    <div class="nav__logo">
+      <i class="fas fa-brain"></i>
+      <span>Dr. Rafael Costa</span>
+    </div>
+
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="#home" class="nav__link active-link">Início</a>
+        </li>
+        <li class="nav__item">
+          <a href="#about" class="nav__link">Sobre</a>
+        </li>
+        <li class="nav__item">
+          <a href="#services" class="nav__link">Serviços</a>
+        </li>
+        <li class="nav__item">
+          <a href="#testimonials" class="nav__link">Depoimentos</a>
+        </li>
+        <li class="nav__item">
+          <a href="#contact" class="nav__link">Contato</a>
+        </li>
+      </ul>
+      <div class="nav__close" id="nav-close">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+
+    <div class="nav__actions">
+      <a href="#contact" class="btn btn--primary">Agendar Consulta</a>
+      <div class="nav__toggle" id="nav-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Main -->
+<main class="main">
+  <!-- Home -->
+  <section class="home section" id="home">
+    <div class="home__container container grid">
+      <div class="home__data">
+        <span class="home__subtitle">Psicólogo Clínico CRP 06/123456</span>
+        <h1 class="home__title">
+          Transforme sua <span class="highlight">mente</span> e
+          descubra seu <span class="highlight">potencial</span>
+        </h1>
+        <p class="home__description">
+          Especialista em terapia cognitivo-comportamental com mais de 10 anos de experiência.
+          Ajudo pessoas a superarem ansiedade, depressão e desenvolverem uma vida mais equilibrada.
+        </p>
+        <div class="home__buttons">
+          <a href="#contact" class="btn btn--primary">
+            <i class="fas fa-calendar-alt"></i>
+            Agendar Primeira Consulta
+          </a>
+          <a href="#about" class="btn btn--ghost">
+            <i class="fas fa-play"></i>
+            Conheça meu trabalho
+          </a>
+        </div>
+        <div class="home__stats">
+          <div class="stat">
+            <span class="stat__number">500+</span>
+            <span class="stat__text">Pacientes atendidos</span>
+          </div>
+          <div class="stat">
+            <span class="stat__number">10+</span>
+            <span class="stat__text">Anos de experiência</span>
+          </div>
+          <div class="stat">
+            <span class="stat__number">95%</span>
+            <span class="stat__text">Taxa de satisfação</span>
+          </div>
+        </div>
+      </div>
+      <div class="home__image">
+        <div class="home__blob">
+          <img src="src/psicologo.jpeg" alt="Dr. Rafael Costa" class="home__img">
+        </div>
+        <div class="home__floating-elements">
+          <div class="floating-card floating-card--1">
+            <i class="fas fa-heart"></i>
+            <span>Bem-estar emocional</span>
+          </div>
+          <div class="floating-card floating-card--2">
+            <i class="fas fa-lightbulb"></i>
+            <span>Autoconhecimento</span>
+          </div>
+          <div class="floating-card floating-card--3">
+            <i class="fas fa-leaf"></i>
+            <span>Equilíbrio mental</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__subtitle">Sobre mim</span>
+        <h2 class="section__title">Minha jornada na psicologia</h2>
+      </div>
+
+      <div class="about__container grid">
+        <div class="about__image">
+          <img src="src/download.png" alt="Dr. Rafael Costa" class="about__img">
+          <div class="about__experience">
+            <span class="about__experience-number">10+</span>
+            <span class="about__experience-text">Anos de<br>experiência</span>
+          </div>
+        </div>
+
+        <div class="about__data">
+          <h3 class="about__title">Dr. Rafael Costa</h3>
+          <p class="about__description">
+            Formado em Psicologia pela USP com especialização em Terapia Cognitivo-Comportamental.
+            Minha missão é ajudar pessoas a desenvolverem ferramentas para uma vida mais plena e equilibrada.
+          </p>
+          <p class="about__description">
+            Acredito que cada pessoa tem o potencial de transformar sua realidade. Meu trabalho é
+            facilitar esse processo de autodescoberta e crescimento pessoal.
+          </p>
+
+          <div class="about__info">
+            <div class="about__info-item">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                <h4>Formação</h4>
+                <span>Psicologia - USP</span>
+              </div>
+            </div>
+            <div class="about__info-item">
+              <i class="fas fa-certificate"></i>
+              <div>
+                <h4>Especialização</h4>
+                <span>Terapia Cognitivo-Comportamental</span>
+              </div>
+            </div>
+            <div class="about__info-item">
+              <i class="fas fa-award"></i>
+              <div>
+                <h4>Registro</h4>
+                <span>CRP 06/123456</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn btn--primary">Agendar consulta</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__subtitle">Serviços</span>
+        <h2 class="section__title">Como posso te ajudar</h2>
+        <p class="section__description">
+          Ofereço diferentes modalidades de atendimento para atender suas necessidades específicas
+        </p>
+      </div>
+
+      <div class="services__container grid">
+        <article class="service__card">
+          <div class="service__icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <h3 class="service__title">Terapia Individual</h3>
+          <p class="service__description">
+            Atendimento personalizado para questões como ansiedade, depressão,
+            autoestima e desenvolvimento pessoal.
+          </p>
+          <ul class="service__features">
+            <li><i class="fas fa-check"></i> Sessões</li>
+            <li><i class="fas fa-check"></i> Abordagem humanizada</li>
+            <li><i class="fas fa-check"></i> Técnicas baseadas em evidências</li>
+          </ul>
+          <div class="service__price">
+          </div>
+        </article>
+
+        <article class="service__card service__card--featured">
+          <div class="service__icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="service__title">Terapia de Casal</h3>
+          <p class="service__description">
+            Fortalecimento de relacionamentos através de comunicação efetiva
+            e resolução de conflitos.
+          </p>
+          <ul class="service__features">
+            <li><i class="fas fa-check"></i> Sessões </li>
+            <li><i class="fas fa-check"></i> Técnicas de comunicação</li>
+            <li><i class="fas fa-check"></i> Exercícios práticos</li>
+          </ul>
+          <div class="service__price">
+          </div>
+        </article>
+
+        <article class="service__card">
+          <div class="service__icon">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h3 class="service__title">Terapia Online</h3>
+          <p class="service__description">
+            Atendimento psicológico no conforto da sua casa, com a mesma
+            qualidade do presencial.
+          </p>
+          <ul class="service__features">
+            <li><i class="fas fa-check"></i> Flexibilidade de horários</li>
+            <li><i class="fas fa-check"></i> Plataforma segura</li>
+            <li><i class="fas fa-check"></i> Mesma eficácia</li>
+          </ul>
+          <div class="service__price">
+            <span class="service__price-value">Entre outras</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section" id="testimonials">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__subtitle">Depoimentos</span>
+        <h2 class="section__title">O que dizem meus pacientes</h2>
+      </div>
+
+      <div class="testimonials__container">
+        <div class="testimonial__card active">
+          <div class="testimonial__content">
+            <div class="testimonial__stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial__text">
+              "O Dr. Rafael me ajudou a superar um período muito difícil da minha vida.
+              Sua abordagem empática e profissional fez toda a diferença no meu processo de cura."
+            </p>
+            <div class="testimonial__author">
+              <img src="/placeholder.svg?height=60&width=60" alt="Maria Silva" class="testimonial__img">
+              <div class="testimonial__info">
+                <h4 class="testimonial__name">Maria Silva</h4>
+                <span class="testimonial__job">Professora</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial__card">
+          <div class="testimonial__content">
+            <div class="testimonial__stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial__text">
+              "A terapia de casal salvou nosso relacionamento. O Dr. Rafael nos ensinou
+              técnicas de comunicação que transformaram nossa convivência."
+            </p>
+            <div class="testimonial__author">
+              <img src="/placeholder.svg?height=60&width=60" alt="João Santos" class="testimonial__img">
+              <div class="testimonial__info">
+                <h4 class="testimonial__name">João & Ana Santos</h4>
+                <span class="testimonial__job">Empresários</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial__card">
+          <div class="testimonial__content">
+            <div class="testimonial__stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial__text">
+              "Excelente profissional! Me ajudou a desenvolver autoconfiança e
+              superar a ansiedade. Recomendo para todos que buscam crescimento pessoal."
+            </p>
+            <div class="testimonial__author">
+              <img src="/placeholder.svg?height=60&width=60" alt="Carlos Lima" class="testimonial__img">
+              <div class="testimonial__info">
+                <h4 class="testimonial__name">Carlos Lima</h4>
+                <span class="testimonial__job">Engenheiro</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonials__controls">
+          <button class="testimonial__btn testimonial__btn--prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="testimonials__dots">
+            <span class="testimonial__dot active" data-slide="0"></span>
+            <span class="testimonial__dot" data-slide="1"></span>
+            <span class="testimonial__dot" data-slide="2"></span>
+          </div>
+          <button class="testimonial__btn testimonial__btn--next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__subtitle">Contato</span>
+        <h2 class="section__title">Vamos conversar?</h2>
+        <p class="section__description">
+          Entre em contato para agendar sua consulta ou esclarecer dúvidas
+        </p>
+      </div>
+
+      <div class="contact__container grid">
+        <div class="contact__info">
+          <div class="contact__card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Endereço</h3>
+            <p>Rua das Flores, 123<br>Vila Madalena - São Paulo/SP</p>
+          </div>
+
+          <div class="contact__card">
+            <i class="fas fa-phone"></i>
+            <h3>Telefone</h3>
+            <p>(11) 99999-9999</p>
+          </div>
+
+          <div class="contact__card">
+            <i class="fas fa-envelope"></i>
+            <h3>E-mail</h3>
+            <p>contato@rafaelcosta.psi.br</p>
+          </div>
+
+          <div class="contact__card">
+            <i class="fas fa-clock"></i>
+            <h3>Horário de atendimento</h3>
+            <p>Segunda à Sexta: 8h às 18h<br>Sábado: 8h às 12h</p>
+          </div>
+        </div>
+
+        <div class="appointment-cta">
+          <div class="cta-card">
+            <h3>Agende Agora</h3>
+            <p>Fale conosco diretamente no WhatsApp e marque sua sessão com facilidade.</p>
+            <a href="https://wa.me/5511987654321" class="btn btn-whatsapp" target="_blank">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967..."/>
+              </svg>
+              Agendar via WhatsApp
+            </a>
+            <span class="cta-note">Resposta rápida em horário comercial</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__content">
+      <div class="footer__info">
+        <div class="footer__logo">
+          <i class="fas fa-brain"></i>
+          <span>Dr. Rafael Costa</span>
+        </div>
+        <p class="footer__description">
+          Psicólogo clínico especializado em terapia cognitivo-comportamental.
+          Ajudando pessoas a transformarem suas vidas há mais de 10 anos.
+        </p>
+        <div class="footer__social">
+          <a href="#" class="footer__social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="footer__social-link">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#" class="footer__social-link">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="#" class="footer__social-link">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__links">
+        <h4>Links úteis</h4>
+        <ul>
+          <li><a href="#about">Sobre</a></li>
+          <li><a href="#services">Serviços</a></li>
+          <li><a href="#testimonials">Depoimentos</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__contact">
+        <h4>Contato</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Rua das Flores, 123 - Vila Madalena</p>
+        <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+        <p><i class="fas fa-envelope"></i> contato@rafaelcosta.psi.br</p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2024 Dr. Rafael Costa. Todos os direitos reservados.</p>
+      <p>CRP 06/123456</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<a href="#" class="scrolltop" id="scroll-top">
+  <i class="fas fa-chevron-up"></i>
+</a>
+
+<script src="src/java.js"></script>
+</body>
+</html>
