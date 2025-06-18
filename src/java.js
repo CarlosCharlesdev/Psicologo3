@@ -545,3 +545,357 @@ window.addEventListener('error', (e) => {
 window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled Promise Rejection:', e.reason);
 });
+
+/*==================== ESPECIALIDADES ANIMATIONS ====================*/
+class EspecialidadesAnimations {
+    constructor() {
+        this.cards = document.querySelectorAll('.specialty-card');
+        this.section = document.querySelector('.specialties');
+        this.init();
+    }
+
+    init() {
+        this.setupIntersectionObserver();
+        this.setupHoverEffects();
+        this.setupAccessibility();
+    }
+
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateCards();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        if (this.section) {
+            observer.observe(this.section);
+        }
+    }
+
+    animateCards() {
+        this.cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate-in');
+            }, index * 100);
+        });
+    }
+
+    setupHoverEffects() {
+        this.cards.forEach(card => {
+            const icon = card.querySelector('.card-icon');
+
+            card.addEventListener('mouseenter', () => {
+                this.addHoverEffect(card, icon);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                this.removeHoverEffect(card, icon);
+            });
+        });
+    }
+
+    addHoverEffect(card, icon) {
+        // Adiciona efeito de brilho no ícone
+        if (icon) {
+            icon.style.boxShadow = '0 8px 25px rgba(218, 122, 0, 0.4)';
+        }
+
+        // Anima as features
+        const features = card.querySelectorAll('.card-features li');
+        features.forEach((feature, index) => {
+            setTimeout(() => {
+                feature.style.transform = 'translateX(5px)';
+                feature.style.transition = 'transform 0.2s ease';
+            }, index * 50);
+        });
+    }
+
+    removeHoverEffect(card, icon) {
+        // Remove efeito do ícone
+        if (icon) {
+            icon.style.boxShadow = '';
+        }
+
+        // Reset das features
+        const features = card.querySelectorAll('.card-features li');
+        features.forEach(feature => {
+            feature.style.transform = '';
+        });
+    }
+
+    setupAccessibility() {
+        this.cards.forEach(card => {
+            // Adiciona atributos de acessibilidade
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'article');
+
+            // Adiciona descrição para leitores de tela
+            const title = card.querySelector('.card-title');
+            const description = card.querySelector('.card-description');
+
+            if (title && description) {
+                const ariaLabel = `${title.textContent}: ${description.textContent}`;
+                card.setAttribute('aria-label', ariaLabel);
+            }
+
+            // Navegação por teclado
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleCardActivation(card);
+                }
+            });
+
+            // Efeitos de foco
+            card.addEventListener('focus', () => {
+                card.style.outline = '2px solid var(--orange)';
+                card.style.outlineOffset = '2px';
+            });
+
+            card.addEventListener('blur', () => {
+                card.style.outline = '';
+                card.style.outlineOffset = '';
+            });
+        });
+    }
+
+    handleCardActivation(card) {
+        // Simula clique ou ação quando ativado via teclado
+        card.style.transform = 'translateY(-8px)';
+        card.style.boxShadow = 'var(--shadow-heavy)';
+
+        setTimeout(() => {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+        }, 200);
+
+        // Aqui você pode adicionar ação específica, como abrir modal ou navegar
+        console.log('Card ativado:', card.querySelector('.card-title').textContent);
+    }
+}
+
+/*==================== ESPECIALIDADES COUNTER ANIMATION ====================*/
+class EspecialidadesCounter {
+    constructor() {
+        this.counters = document.querySelectorAll('.specialty-stat');
+        this.init();
+    }
+
+    init() {
+        if (this.counters.length > 0) {
+            this.setupCounterObserver();
+        }
+    }
+
+    setupCounterObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        this.counters.forEach(counter => {
+            observer.observe(counter);
+        });
+    }
+
+    animateCounter(counter) {
+        const target = parseInt(counter.dataset.target) || 0;
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                counter.textContent = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        };
+
+        updateCounter();
+    }
+}
+
+/*==================== ESPECIALIDADES FILTER ====================*/
+class EspecialidadesFilter {
+    constructor() {
+        this.filterButtons = document.querySelectorAll('.specialty-filter-btn');
+        this.cards = document.querySelectorAll('.specialty-card');
+        this.init();
+    }
+
+    init() {
+        if (this.filterButtons.length > 0) {
+            this.setupFilterEvents();
+        }
+    }
+
+    setupFilterEvents() {
+        this.filterButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filter = button.dataset.filter;
+                this.filterCards(filter);
+                this.updateActiveButton(button);
+            });
+        });
+    }
+
+    filterCards(filter) {
+        this.cards.forEach(card => {
+            const category = card.dataset.category;
+
+            if (filter === 'all' || category === filter) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 50);
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    updateActiveButton(activeButton) {
+        this.filterButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+        activeButton.classList.add('active');
+    }
+}
+
+/*==================== ESPECIALIDADES MODAL ====================*/
+class EspecialidadesModal {
+    constructor() {
+        this.modal = null;
+        this.init();
+    }
+
+    init() {
+        this.createModal();
+        this.setupCardClickEvents();
+    }
+
+    createModal() {
+        const modalHTML = `
+            <div class="specialty-modal" id="specialtyModal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <button class="modal-close" aria-label="Fechar modal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="modal-body">
+                        <div class="modal-icon"></div>
+                        <h3 class="modal-title"></h3>
+                        <p class="modal-description"></p>
+                        <ul class="modal-features"></ul>
+                        <div class="modal-actions">
+                            <a href="#contact" class="btn btn--primary">Agendar Consulta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        this.modal = document.getElementById('specialtyModal');
+        this.setupModalEvents();
+    }
+
+    setupModalEvents() {
+        const closeBtn = this.modal.querySelector('.modal-close');
+        const overlay = this.modal.querySelector('.modal-overlay');
+
+        closeBtn.addEventListener('click', () => this.closeModal());
+        overlay.addEventListener('click', () => this.closeModal());
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                this.closeModal();
+            }
+        });
+    }
+
+    setupCardClickEvents() {
+        this.cards = document.querySelectorAll('.specialty-card');
+        this.cards.forEach(card => {
+            card.addEventListener('click', () => {
+                this.openModal(card);
+            });
+        });
+    }
+
+    openModal(card) {
+        const icon = card.querySelector('.card-icon').innerHTML;
+        const title = card.querySelector('.card-title').textContent;
+        const description = card.querySelector('.card-description').textContent;
+        const features = Array.from(card.querySelectorAll('.card-features li')).map(li => li.textContent);
+
+        this.modal.querySelector('.modal-icon').innerHTML = icon;
+        this.modal.querySelector('.modal-title').textContent = title;
+        this.modal.querySelector('.modal-description').textContent = description;
+
+        const featuresList = this.modal.querySelector('.modal-features');
+        featuresList.innerHTML = features.map(feature => `<li>${feature}</li>`).join('');
+
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeModal() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+/*==================== INITIALIZE ESPECIALIDADES ====================*/
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializa todas as funcionalidades das especialidades
+    new EspecialidadesAnimations();
+    new EspecialidadesCounter();
+    new EspecialidadesFilter();
+    new EspecialidadesModal();
+});
+
+/*==================== PERFORMANCE OPTIMIZATION ====================*/
+// Lazy loading para imagens das especialidades
+const especialidadesImageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                especialidadesImageObserver.unobserve(img);
+            }
+        }
+    });
+});
+
+// Observa imagens lazy nas especialidades
+document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = document.querySelectorAll('.specialty-card img[data-src]');
+    lazyImages.forEach(img => especialidadesImageObserver.observe(img));
+});
