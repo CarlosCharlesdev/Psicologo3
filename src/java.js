@@ -39,7 +39,10 @@ function updateProgressBar() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = (scrollTop / scrollHeight) * 100;
 
-    document.getElementById('progressBar').style.width = progress + '%';
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) {
+        progressBar.style.width = progress + '%';
+    }
 }
 
 window.addEventListener('scroll', updateProgressBar);
@@ -63,9 +66,11 @@ function scrollActive(){
         const sectionId = current.getAttribute('id')
 
         if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
-            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
-        }else{
-            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+            const activeLink = document.querySelector('.nav__menu a[href*=' + sectionId + ']');
+            if (activeLink) {
+                document.querySelectorAll('.nav__link').forEach(link => link.classList.remove('active-link'));
+                activeLink.classList.add('active-link');
+            }
         }
     })
 }
@@ -80,7 +85,9 @@ class TestimonialSlider {
         this.prevBtn = document.querySelector('.testimonial__btn--prev');
         this.nextBtn = document.querySelector('.testimonial__btn--next');
 
-        this.init();
+        if (this.slides.length > 0) {
+            this.init();
+        }
     }
 
     init() {
@@ -90,8 +97,12 @@ class TestimonialSlider {
     }
 
     bindEvents() {
-        this.prevBtn.addEventListener('click', () => this.prevSlide());
-        this.nextBtn.addEventListener('click', () => this.nextSlide());
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => this.prevSlide());
+        }
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => this.nextSlide());
+        }
 
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => this.goToSlide(index));
@@ -110,8 +121,12 @@ class TestimonialSlider {
         });
 
         // Show current slide
-        this.slides[index].classList.add('active');
-        this.dots[index].classList.add('active');
+        if (this.slides[index]) {
+            this.slides[index].classList.add('active');
+        }
+        if (this.dots[index]) {
+            this.dots[index].classList.add('active');
+        }
 
         this.currentSlide = index;
     }
@@ -137,11 +152,6 @@ class TestimonialSlider {
     }
 }
 
-// Initialize testimonial slider
-document.addEventListener('DOMContentLoaded', () => {
-    new TestimonialSlider();
-});
-
 /*==================== SCROLL REVEAL ANIMATION ====================*/
 const observerOptions = {
     threshold: 0.1,
@@ -156,23 +166,17 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-    animatedElements.forEach(el => observer.observe(el));
-});
-
 /*==================== CONTACT FORM ====================*/
 class ContactForm {
     constructor() {
         this.form = document.getElementById('contactForm');
-        this.init();
+        if (this.form) {
+            this.init();
+        }
     }
 
     init() {
-        if (this.form) {
-            this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-        }
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
     }
 
     handleSubmit(e) {
@@ -193,12 +197,12 @@ class ContactForm {
     validateForm(data) {
         const { name, email, service } = data;
 
-        if (!name.trim()) {
+        if (!name || !name.trim()) {
             this.showMessage('Por favor, preencha seu nome.', 'error');
             return false;
         }
 
-        if (!email.trim() || !this.isValidEmail(email)) {
+        if (!email || !email.trim() || !this.isValidEmail(email)) {
             this.showMessage('Por favor, insira um e-mail válido.', 'error');
             return false;
         }
@@ -271,11 +275,6 @@ class ContactForm {
     }
 }
 
-// Initialize contact form
-document.addEventListener('DOMContentLoaded', () => {
-    new ContactForm();
-});
-
 /*==================== SMOOTH SCROLLING ====================*/
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -283,7 +282,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const target = document.querySelector(this.getAttribute('href'));
 
         if (target) {
-            const headerHeight = document.querySelector('.header').offsetHeight;
+            const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
             const targetPosition = target.offsetTop - headerHeight;
 
             window.scrollTo({
@@ -341,21 +340,14 @@ class TypingAnimation {
     }
 }
 
-// Initialize typing animation if element exists
-document.addEventListener('DOMContentLoaded', () => {
-    const typingElement = document.querySelector('.typing-text');
-    if (typingElement) {
-        const texts = ['bem-estar mental', 'autoconhecimento', 'equilíbrio emocional', 'crescimento pessoal'];
-        new TypingAnimation(typingElement, texts);
-    }
-});
-
 /*==================== COUNTER ANIMATION ====================*/
 function animateCounters() {
     const counters = document.querySelectorAll('.stat__number');
 
     counters.forEach(counter => {
         const target = parseInt(counter.textContent.replace(/\D/g, ''));
+        if (isNaN(target)) return;
+        
         const increment = target / 100;
         let current = 0;
 
@@ -383,13 +375,6 @@ const statsObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const statsSection = document.querySelector('.home__stats');
-    if (statsSection) {
-        statsObserver.observe(statsSection);
-    }
-});
-
 /*==================== FLOATING ELEMENTS PARALLAX ====================*/
 function parallaxEffect() {
     const scrolled = window.pageYOffset;
@@ -402,8 +387,6 @@ function parallaxEffect() {
     });
 }
 
-window.addEventListener('scroll', parallaxEffect);
-
 /*==================== PRELOADER ====================*/
 window.addEventListener('load', () => {
     const preloader = document.querySelector('.preloader');
@@ -415,135 +398,18 @@ window.addEventListener('load', () => {
     }
 });
 
-/*==================== DARK MODE TOGGLE ====================*/
-class DarkModeToggle {
-    constructor() {
-        this.darkMode = localStorage.getItem('darkMode') === 'true';
-        this.init();
-    }
-
-    init() {
-        this.createToggle();
-        this.applyTheme();
-    }
-
-    createToggle() {
-        const toggle = document.createElement('button');
-        toggle.className = 'dark-mode-toggle';
-        toggle.innerHTML = '<i class="fas fa-moon"></i>';
-        toggle.style.cssText = `
-            position: fixed;
-            top: 50%;
-            right: 1rem;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--orange);
-            color: white;
-            border: none;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-medium);
-        `;
-
-        toggle.addEventListener('click', () => this.toggleTheme());
-        document.body.appendChild(toggle);
-
-        this.toggleButton = toggle;
-    }
-
-    toggleTheme() {
-        this.darkMode = !this.darkMode;
-        localStorage.setItem('darkMode', this.darkMode);
-        this.applyTheme();
-    }
-
-    applyTheme() {
-        if (this.darkMode) {
-            document.body.classList.add('dark-theme');
-            this.toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            document.body.classList.remove('dark-theme');
-            this.toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
-        }
-    }
-}
-
-// Initialize dark mode toggle
-document.addEventListener('DOMContentLoaded', () => {
-    new DarkModeToggle();
-});
-
 /*==================== LAZY LOADING IMAGES ====================*/
 const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.remove('lazy');
-            imageObserver.unobserve(img);
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
         }
     });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    lazyImages.forEach(img => imageObserver.observe(img));
-});
-
-/*==================== PERFORMANCE OPTIMIZATION ====================*/
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to scroll events
-window.addEventListener('scroll', debounce(() => {
-    scrollHeader();
-    updateProgressBar();
-    scrollTop();
-    scrollActive();
-}, 10));
-
-/*==================== ACCESSIBILITY IMPROVEMENTS ====================*/
-// Keyboard navigation for testimonial slider
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-        document.querySelector('.testimonial__btn--prev').click();
-    } else if (e.key === 'ArrowRight') {
-        document.querySelector('.testimonial__btn--next').click();
-    }
-});
-
-// Focus management for mobile menu
-const navToggleBtn = document.getElementById('nav-toggle');
-const navCloseBtn = document.getElementById('nav-close');
-
-if (navToggleBtn) {
-    navToggleBtn.addEventListener('click', () => {
-        setTimeout(() => {
-            navCloseBtn.focus();
-        }, 100);
-    });
-}
-
-/*==================== ERROR HANDLING ====================*/
-window.addEventListener('error', (e) => {
-    console.error('JavaScript Error:', e.error);
-});
-
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('Unhandled Promise Rejection:', e.reason);
 });
 
 /*==================== ESPECIALIDADES ANIMATIONS ====================*/
@@ -551,7 +417,9 @@ class EspecialidadesAnimations {
     constructor() {
         this.cards = document.querySelectorAll('.specialty-card');
         this.section = document.querySelector('.specialties');
-        this.init();
+        if (this.cards.length > 0) {
+            this.init();
+        }
     }
 
     init() {
@@ -678,224 +546,96 @@ class EspecialidadesAnimations {
         }, 200);
 
         // Aqui você pode adicionar ação específica, como abrir modal ou navegar
-        console.log('Card ativado:', card.querySelector('.card-title').textContent);
+        console.log('Card ativado:', card.querySelector('.card-title')?.textContent);
     }
 }
-
-/*==================== ESPECIALIDADES COUNTER ANIMATION ====================*/
-class EspecialidadesCounter {
-    constructor() {
-        this.counters = document.querySelectorAll('.specialty-stat');
-        this.init();
-    }
-
-    init() {
-        if (this.counters.length > 0) {
-            this.setupCounterObserver();
-        }
-    }
-
-    setupCounterObserver() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.animateCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        this.counters.forEach(counter => {
-            observer.observe(counter);
-        });
-    }
-
-    animateCounter(counter) {
-        const target = parseInt(counter.dataset.target) || 0;
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                counter.textContent = Math.ceil(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target;
-            }
-        };
-
-        updateCounter();
-    }
-}
-
-/*==================== ESPECIALIDADES FILTER ====================*/
-class EspecialidadesFilter {
-    constructor() {
-        this.filterButtons = document.querySelectorAll('.specialty-filter-btn');
-        this.cards = document.querySelectorAll('.specialty-card');
-        this.init();
-    }
-
-    init() {
-        if (this.filterButtons.length > 0) {
-            this.setupFilterEvents();
-        }
-    }
-
-    setupFilterEvents() {
-        this.filterButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const filter = button.dataset.filter;
-                this.filterCards(filter);
-                this.updateActiveButton(button);
-            });
-        });
-    }
-
-    filterCards(filter) {
-        this.cards.forEach(card => {
-            const category = card.dataset.category;
-
-            if (filter === 'all' || category === filter) {
-                card.style.display = 'block';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 50);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
-            }
-        });
-    }
-
-    updateActiveButton(activeButton) {
-        this.filterButtons.forEach(button => {
-            button.classList.remove('active');
-        });
-        activeButton.classList.add('active');
-    }
-}
-
-/*==================== ESPECIALIDADES MODAL ====================*/
-class EspecialidadesModal {
-    constructor() {
-        this.modal = null;
-        this.init();
-    }
-
-    init() {
-        this.createModal();
-        this.setupCardClickEvents();
-    }
-
-    createModal() {
-        const modalHTML = `
-            <div class="specialty-modal" id="specialtyModal">
-                <div class="modal-overlay"></div>
-                <div class="modal-content">
-                    <button class="modal-close" aria-label="Fechar modal">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                    <div class="modal-body">
-                        <div class="modal-icon"></div>
-                        <h3 class="modal-title"></h3>
-                        <p class="modal-description"></p>
-                        <ul class="modal-features"></ul>
-                        <div class="modal-actions">
-                            <a href="#contact" class="btn btn--primary">Agendar Consulta</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-        this.modal = document.getElementById('specialtyModal');
-        this.setupModalEvents();
-    }
-
-    setupModalEvents() {
-        const closeBtn = this.modal.querySelector('.modal-close');
-        const overlay = this.modal.querySelector('.modal-overlay');
-
-        closeBtn.addEventListener('click', () => this.closeModal());
-        overlay.addEventListener('click', () => this.closeModal());
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-                this.closeModal();
-            }
-        });
-    }
-
-    setupCardClickEvents() {
-        this.cards = document.querySelectorAll('.specialty-card');
-        this.cards.forEach(card => {
-            card.addEventListener('click', () => {
-                this.openModal(card);
-            });
-        });
-    }
-
-    openModal(card) {
-        const icon = card.querySelector('.card-icon').innerHTML;
-        const title = card.querySelector('.card-title').textContent;
-        const description = card.querySelector('.card-description').textContent;
-        const features = Array.from(card.querySelectorAll('.card-features li')).map(li => li.textContent);
-
-        this.modal.querySelector('.modal-icon').innerHTML = icon;
-        this.modal.querySelector('.modal-title').textContent = title;
-        this.modal.querySelector('.modal-description').textContent = description;
-
-        const featuresList = this.modal.querySelector('.modal-features');
-        featuresList.innerHTML = features.map(feature => `<li>${feature}</li>`).join('');
-
-        this.modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    closeModal() {
-        this.modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-/*==================== INITIALIZE ESPECIALIDADES ====================*/
-document.addEventListener('DOMContentLoaded', () => {
-    // Inicializa todas as funcionalidades das especialidades
-    new EspecialidadesAnimations();
-    new EspecialidadesCounter();
-    new EspecialidadesFilter();
-    new EspecialidadesModal();
-});
 
 /*==================== PERFORMANCE OPTIMIZATION ====================*/
-// Lazy loading para imagens das especialidades
-const especialidadesImageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.dataset.src) {
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                especialidadesImageObserver.unobserve(img);
-            }
-        }
-    });
+// Debounce function for scroll events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/*==================== ACCESSIBILITY IMPROVEMENTS ====================*/
+// Keyboard navigation for testimonial slider
+document.addEventListener('keydown', (e) => {
+    const prevBtn = document.querySelector('.testimonial__btn--prev');
+    const nextBtn = document.querySelector('.testimonial__btn--next');
+    
+    if (e.key === 'ArrowLeft' && prevBtn) {
+        prevBtn.click();
+    } else if (e.key === 'ArrowRight' && nextBtn) {
+        nextBtn.click();
+    }
 });
 
-// Observa imagens lazy nas especialidades
+// Focus management for mobile menu
+const navToggleBtn = document.getElementById('nav-toggle');
+const navCloseBtn = document.getElementById('nav-close');
+
+if (navToggleBtn && navCloseBtn) {
+    navToggleBtn.addEventListener('click', () => {
+        setTimeout(() => {
+            navCloseBtn.focus();
+        }, 100);
+    });
+}
+
+/*==================== ERROR HANDLING ====================*/
+window.addEventListener('error', (e) => {
+    console.error('JavaScript Error:', e.error);
+});
+
+window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled Promise Rejection:', e.reason);
+});
+
+/*==================== INITIALIZE ALL COMPONENTS ====================*/
 document.addEventListener('DOMContentLoaded', () => {
-    const lazyImages = document.querySelectorAll('.specialty-card img[data-src]');
-    lazyImages.forEach(img => especialidadesImageObserver.observe(img));
+    // Initialize testimonial slider
+    new TestimonialSlider();
+    
+    // Initialize contact form
+    new ContactForm();
+    
+    // Initialize especialidades animations
+    new EspecialidadesAnimations();
+    
+    // Initialize typing animation if element exists
+    const typingElement = document.querySelector('.typing-text');
+    if (typingElement) {
+        const texts = ['bem-estar mental', 'autoconhecimento', 'equilíbrio emocional', 'crescimento pessoal'];
+        new TypingAnimation(typingElement, texts);
+    }
+    
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+    animatedElements.forEach(el => observer.observe(el));
+    
+    // Observe stats section for counter animation
+    const statsSection = document.querySelector('.home__stats');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+    
+    // Observe lazy images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    lazyImages.forEach(img => imageObserver.observe(img));
+    
+    // Apply debounced scroll events
+    window.addEventListener('scroll', debounce(() => {
+        scrollHeader();
+        updateProgressBar();
+        scrollTop();
+        scrollActive();
+        parallaxEffect();
+    }, 10));
 });
