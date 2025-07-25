@@ -669,6 +669,18 @@ button {
   margin: 0 auto;
 }
 
+.link-comentario{
+  color: #424822;
+  cursor: pointer;
+  transition: color 0.2s;
+  
+}
+
+.link-comentario:hover {
+  color:#da7a00;
+  text-decoration: underline;
+}
+
 .testimonial__card {
   display: none;
   opacity: 0;
