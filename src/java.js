@@ -164,7 +164,7 @@ class TestimonialSlider {
   autoPlay() {
     setInterval(() => {
       this.nextSlide()
-    }, 5000)
+    }, 15000)
   }
 }
 
